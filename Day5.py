@@ -11,12 +11,25 @@ def react(input):
 
 def main():
     with open("Inputs/Day5") as file:
+        unitTypes = {}
         line = file.readline()
-        chars = []
-        for c in line:
-            chars.append(c)
-        count = 1
-        while react(chars) != 0:
-            #print "Reaction #", count
-            count += 1
-        print "Result", len(chars)
+        for i in range(65, 65+26):
+            chars = []
+            lineCopy = line
+            lineCopy = lineCopy.replace(chr(i), "")
+            lineCopy = lineCopy.replace(chr(i+32), "")
+            for c in lineCopy:
+                chars.append(c)
+            count = 1
+            while react(chars) != 0:
+                #print "Reaction #", count
+                count += 1
+            print "Result", chr(i), len(chars)
+            unitTypes[chr(i)] = len(chars)
+        minCount = unitTypes["A"]
+        unitTypePick = "A"
+        for unitType in unitTypes.keys():
+            if unitTypes[unitType] < minCount:
+                unitTypePick = unitType
+                minCount = unitTypes[unitType]
+        print "Answer", unitTypePick, minCount

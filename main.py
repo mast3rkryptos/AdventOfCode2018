@@ -1,3 +1,11 @@
-import Day5
+import time
 
-Day5.main()
+import Day6
+
+start = time.time()
+print "Start:", start
+Day6.main()
+end = time.time()
+print "End:", end
+print "Elapsed:", end - start
+
