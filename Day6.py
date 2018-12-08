@@ -56,22 +56,20 @@ def main():
                         excludedCoordinates.append(minDistancePoints[0])
 
         # Print out coordinates and counts
+        coordinates2 = coordinates.copy()
         for excludedCoordinate in excludedCoordinates:
-            coordinates.pop(excludedCoordinate)
-        for coordinate in coordinates.keys():
-            print coordinate, coordinates[coordinate]
+            coordinates2.pop(excludedCoordinate)
+        for coordinate in coordinates2.keys():
+            print coordinate, coordinates2[coordinate]
 
-
-        #
-        # # Fill out grid
-        # grid = []
-        # for i in range(0, maxX):
-        #     column = []
-        #     grid.append(column)
-        #     for j in range(0, maxY):
-        #         grid[i].append(".")
-        # i = 65
-        # for coordinate in coordinates:
-        #     grid[coordinate[0]][coordinate[1]] = chr(i)
-        #     i += 1
-        #     printGrid(grid)
+        # Find the size of the region containing all locations which have a total
+        # distance to all given coordinates of less than 10000
+        regionSize = 0
+        for x in range(0, maxX):
+            for y in range(0, maxY):
+                totalManhattanDistance = 0
+                for coordinate in coordinates.keys():
+                    totalManhattanDistance += calculateManhattanDistance((x, y), coordinate)
+                if totalManhattanDistance < 10000:
+                    regionSize += 1
+        print regionSize
