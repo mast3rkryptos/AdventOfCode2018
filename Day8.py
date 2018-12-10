@@ -1,19 +1,26 @@
 # Recursive
 # Returns a tuple: (size of node, sum of metadaata)
 def parseNode(data, root):
-    numNodes = data[root]
-    numMeta = data[root+1]
+    # Get the number of subnodes
+    current = root
+    numNodes = int(data[current])
+    # Get the number of metadata entries
+    current += 1
+    numMeta = int(data[current])
+    # Process subnodes and get metadata
+    current += 1
     metaSum = 0
-    nodeSize = 2 + numMeta
-    if numNodes == 0:
-        for i in range(0, numMeta):
-            metaSum += data[root+2+i]
-    else:
-        offset = 2
+    if numNodes != 0:
         for i in range(0, numNodes):
-            parseNode(data, root + offset)
+            result = parseNode(data, current)
+            current = result[0]
+            metaSum += result[1]
+    for i in range(0, numMeta):
+        metaSum += int(data[current])
+        current += 1
 
-    return (nodeSize, metaSum)
+    return current, metaSum
+
 
 def main():
     with open("Inputs/Day8") as file:
