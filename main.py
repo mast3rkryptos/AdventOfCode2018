@@ -1,10 +1,10 @@
 import time
 
-import Day9
+import Day10
 
 start = time.time()
 print "Start:", start
-Day9.main()
+Day10.main()
 end = time.time()
 print "End:", end
 print "Elapsed:", end - start
